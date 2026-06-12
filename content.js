@@ -64,8 +64,8 @@ window.CONTENT = {
       stack: ["FastAPI", "Vue 3", "SQLite", "DeepSeek", "OCR", "PyInstaller"],
       link: "https://github.com/songtaoluo007-maker/songtaosimi",
       linkLabel: "查看仓库",
-      video: "",
-      image: "",
+      video: "images/fund-demo.mp4",
+      image: "images/fund-poster.jpg",
       demo: "",
       tone: "blue"
     }
