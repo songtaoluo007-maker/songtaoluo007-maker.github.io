@@ -87,8 +87,12 @@ nav .links a:hover::after{width:100%}
 .case .row .v{font-size:14px;color:var(--mut);line-height:1.8}
 .case .pills{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px}
 .case .pills span{font-family:var(--mono);font-size:12px;color:var(--ink2);border:1px solid var(--line2);border-radius:5px;padding:4px 12px}
+.case .lnks{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 .case .lnk{font-family:var(--mono);font-size:13px;color:var(--ink);display:inline-flex;align-items:center;gap:8px;border-bottom:1px solid var(--line2);padding-bottom:5px;transition:border-color .3s,color .3s}
 .case .lnk:hover{color:var(--accent);border-color:var(--accent)}
+.btn-demo{font-family:var(--mono);font-size:13px;color:var(--accent);border:1px solid rgba(45,212,167,.45);border-radius:8px;padding:11px 22px;transition:background .3s,color .3s,border-color .3s}
+.btn-demo:hover{background:var(--accent);border-color:var(--accent);color:#06120e}
+video.shot{aspect-ratio:auto}
 .case .vis{position:relative}
 .case .shot{display:block;width:100%;border:1px solid var(--line2);border-radius:12px}
 .case .ph{aspect-ratio:4/4.7;max-width:430px;margin:0 auto;border-radius:12px;padding:clamp(16px,2vw,24px);position:relative;overflow:hidden;border:1px solid}
@@ -189,6 +193,7 @@ const TONES = {
 };
 
 function caseVisual(cs){
+  if(cs.video) return `<video class="shot para" src="${cs.video}" autoplay muted loop playsinline ${cs.image?`poster="${cs.image}"`:''} aria-label="${cs.title} 实机演示"></video>`;
   if(cs.image) return `<img class="shot para" src="${cs.image}" alt="${cs.title} 界面截图">`;
   const t = TONES[cs.tone] || TONES.green;
   return `<div class="ph para" style="background:${t.panel};border-color:${t.border}">
@@ -237,7 +242,10 @@ document.getElementById('app').innerHTML = `
       <div class="row rv" style="--d:.26s"><span class="k">方案</span><span class="v">${cs.solution}</span></div>
       <div class="row rv" style="--d:.32s"><span class="k">成果</span><span class="v">${cs.outcome}</span></div>
       <div class="pills rv" style="--d:.38s">${cs.stack.map(s=>`<span>${s}</span>`).join('')}</div>
-      ${cs.link?`<a class="lnk rv" style="--d:.42s" href="${cs.link}" target="_blank" rel="noopener">${cs.linkLabel||'查看项目'} →</a>`:''}
+      <div class="lnks rv" style="--d:.42s">
+        ${cs.demo?`<a class="btn-demo" href="${cs.demo}" target="_blank" rel="noopener">${cs.demoLabel||'在线试用'} ↗</a>`:''}
+        ${cs.link?`<a class="lnk" href="${cs.link}" target="_blank" rel="noopener">${cs.linkLabel||'查看项目'} →</a>`:''}
+      </div>
     </div>
     <div class="vis rv" style="--d:.2s">${caseVisual(cs)}</div>
   </div>`).join('')}

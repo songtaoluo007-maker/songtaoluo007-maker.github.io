@@ -30,9 +30,11 @@ window.CONTENT = {
   ],
 
   /* ---------- 精选案例（整屏大案例，左右交错排布） ----------
-     image 字段：填截图路径（如 "images/shiyi.png"）则显示截图，
-     留空 "" 则显示同风格的抽象界面占位图。
-     tone 字段：占位图配色，可选 "green" / "blue" / "amber" / "purple"
+     video 字段：填演示视频路径（如 "images/shiyi.mp4"）自动循环播放，优先于截图
+     image 字段：填截图路径（如 "images/shiyi.png"）则显示截图；有 video 时作为封面
+     两者都留空 "" 则显示同风格的抽象界面占位图
+     demo  字段：填在线试用地址，会显示「在线试用 ↗」按钮；留空不显示
+     tone  字段：占位图配色，可选 "green" / "blue" / "amber" / "purple"
   ------------------------------------------------------------ */
   cases: [
     {
@@ -46,7 +48,9 @@ window.CONTENT = {
       stack: ["Vue 3", "TypeScript", "FastAPI", "DeepSeek", "腾讯云"],
       link: "https://github.com/songtaoluo007-maker/memory-healer",
       linkLabel: "查看仓库",
-      image: "",
+      video: "images/shiyi-demo.mp4",
+      image: "images/shiyi-poster.jpg",
+      demo: "",
       tone: "green"
     },
     {
@@ -60,7 +64,9 @@ window.CONTENT = {
       stack: ["FastAPI", "Vue 3", "SQLite", "DeepSeek", "OCR", "PyInstaller"],
       link: "https://github.com/songtaoluo007-maker/songtaosimi",
       linkLabel: "查看仓库",
+      video: "",
       image: "",
+      demo: "",
       tone: "blue"
     }
   ],
