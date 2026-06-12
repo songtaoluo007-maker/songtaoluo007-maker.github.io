@@ -54,6 +54,7 @@ nav .links a:hover::after{width:100%}
 
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero::before,.contact::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 120% 95% at 50% 38%,transparent 38%,rgba(7,7,9,.72) 100%)}
 .hero .inner{position:relative;z-index:2;padding-bottom:clamp(36px,7vh,84px)}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:6px;color:var(--dim);margin-bottom:clamp(18px,3vh,32px)}
 .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(64px,13vw,168px);line-height:1.04;letter-spacing:.01em;margin-bottom:14px}
@@ -323,15 +324,15 @@ function aurora(id, blobs){
   })).observe(cv);
 }
 aurora('au1',[
-  {x:.18,y:.34,r:.42,c:'#3730a3',vx:.00011,vy:.00007,ax:.13,ay:.10,p:0,a:.8,pr:.05},
-  {x:.62,y:.22,r:.34,c:'#0f766e',vx:-.00009,vy:.00012,ax:.12,ay:.11,p:2,a:.65,pr:.08},
-  {x:.85,y:.66,r:.30,c:'#b45309',vx:.00007,vy:-.00009,ax:.09,ay:.08,p:4,a:.45,pr:.06},
-  {x:.40,y:.85,r:.38,c:'#1e3a8a',vx:-.00006,vy:.00008,ax:.11,ay:.07,p:5,a:.6,pr:.04}
+  {x:.16,y:.30,r:.34,c:'#3730a3',vx:.00011,vy:.00007,ax:.11,ay:.09,p:0,a:.5,pr:.05},
+  {x:.62,y:.18,r:.28,c:'#0f766e',vx:-.00009,vy:.00012,ax:.10,ay:.09,p:2,a:.4,pr:.08},
+  {x:.88,y:.62,r:.24,c:'#b45309',vx:.00007,vy:-.00009,ax:.08,ay:.07,p:4,a:.28,pr:.06},
+  {x:.38,y:.88,r:.30,c:'#1e3a8a',vx:-.00006,vy:.00008,ax:.09,ay:.06,p:5,a:.36,pr:.04}
 ]);
 aurora('au2',[
-  {x:.25,y:.30,r:.40,c:'#3730a3',vx:.00009,vy:.00006,ax:.10,ay:.09,p:1,a:.6,pr:.06},
-  {x:.75,y:.65,r:.36,c:'#0f766e',vx:-.00007,vy:.0001,ax:.10,ay:.08,p:3,a:.5,pr:.08},
-  {x:.55,y:.10,r:.28,c:'#b45309',vx:.00006,vy:-.00008,ax:.08,ay:.06,p:5,a:.35,pr:.05}
+  {x:.22,y:.28,r:.32,c:'#3730a3',vx:.00009,vy:.00006,ax:.09,ay:.08,p:1,a:.4,pr:.06},
+  {x:.78,y:.68,r:.28,c:'#0f766e',vx:-.00007,vy:.0001,ax:.09,ay:.07,p:3,a:.32,pr:.08},
+  {x:.55,y:.06,r:.22,c:'#b45309',vx:.00006,vy:-.00008,ax:.07,ay:.05,p:5,a:.22,pr:.05}
 ]);
 
 const obs = new IntersectionObserver(es=>es.forEach(e=>{
