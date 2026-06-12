@@ -93,6 +93,8 @@ nav .links a:hover::after{width:100%}
 .btn-demo{font-family:var(--mono);font-size:13px;color:var(--accent);border:1px solid rgba(45,212,167,.45);border-radius:8px;padding:11px 22px;transition:background .3s,color .3s,border-color .3s}
 .btn-demo:hover{background:var(--accent);border-color:var(--accent);color:#06120e}
 video.shot{aspect-ratio:auto;max-height:540px;width:auto;max-width:100%;margin:0 auto;display:block}
+.case .phone{background:#0e0e12;border:1px solid var(--line2);border-radius:34px;padding:12px;width:fit-content;margin:0 auto}
+.case .phone video{display:block;width:clamp(210px,22vw,264px);border-radius:24px}
 .case .vis{position:relative}
 .case .shot{display:block;width:100%;border:1px solid var(--line2);border-radius:12px}
 .case .ph{aspect-ratio:4/4.7;max-width:430px;margin:0 auto;border-radius:12px;padding:clamp(16px,2vw,24px);position:relative;overflow:hidden;border:1px solid}
@@ -193,6 +195,7 @@ const TONES = {
 };
 
 function caseVisual(cs){
+  if(cs.video && cs.portrait) return `<div class="phone para"><video src="${cs.video}" autoplay muted loop playsinline ${cs.image?`poster="${cs.image}"`:''} aria-label="${cs.title} 实机演示"></video></div>`;
   if(cs.video) return `<video class="shot para" src="${cs.video}" autoplay muted loop playsinline ${cs.image?`poster="${cs.image}"`:''} aria-label="${cs.title} 实机演示"></video>`;
   if(cs.image) return `<img class="shot para" src="${cs.image}" alt="${cs.title} 界面截图">`;
   const t = TONES[cs.tone] || TONES.green;

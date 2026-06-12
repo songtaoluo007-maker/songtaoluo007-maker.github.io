@@ -34,6 +34,7 @@ window.CONTENT = {
      image 字段：填截图路径（如 "images/shiyi.png"）则显示截图；有 video 时作为封面
      两者都留空 "" 则显示同风格的抽象界面占位图
      demo  字段：填在线试用地址，会显示「在线试用 ↗」按钮；留空不显示
+     portrait 字段：竖屏视频（手机录屏）设为 true，会以手机样机框居中展示
      tone  字段：占位图配色，可选 "green" / "blue" / "amber" / "purple"
   ------------------------------------------------------------ */
   cases: [
@@ -82,6 +83,7 @@ window.CONTENT = {
       linkLabel: "",
       video: "images/tank-demo.mp4",
       image: "images/tank-poster.jpg",
+      portrait: true,
       demo: "",
       tone: "amber"
     }
