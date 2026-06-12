@@ -68,6 +68,22 @@ window.CONTENT = {
       image: "images/fund-poster.jpg",
       demo: "",
       tone: "blue"
+    },
+    {
+      tag: "HARMONYOS · ARKTS 游戏开发",
+      title: "BattleCity 坦克大战",
+      titleEn: "Armored Frontline",
+      positioning: "经典坦克大战，被重制成一场有指挥系统的二战战役。",
+      challenge: "复刻坦克大战不难，难的是让它在今天还值得一玩——纯复古复刻缺乏深度，也撑不起重复游玩的动力。",
+      solution: "ArkTS 从零实现游戏循环与碰撞检测；在经典玩法之上加入战役编年体（莫斯科到库尔斯克四大战役）、攻防双阵营、载具采购（T-34/76 到 SU-152）和消耗指挥点的八种战术指令——集火、空袭、烟幕、维修各有用途。",
+      outcome: "战役、车库、成就、玩家档案、数据持久化一应俱全，军事风 UI 逐帧手绘，课程作业长成了完整游戏。",
+      stack: ["ArkTS", "ArkUI", "HarmonyOS", "Canvas", "游戏设计"],
+      link: "",
+      linkLabel: "",
+      video: "images/tank-demo.mp4",
+      image: "images/tank-poster.jpg",
+      demo: "",
+      tone: "amber"
     }
   ],
 
@@ -88,13 +104,6 @@ window.CONTENT = {
       stack: "Java · Android",
       platform: "Android",
       link: "https://github.com/songtaoluo007-maker/xiaoguai-accounting"
-    },
-    {
-      title: "BattleCity 坦克大战",
-      desc: "经典「坦克大战」的 HarmonyOS 移植——ArkTS 实现游戏循环、碰撞检测与关卡逻辑。",
-      stack: "ArkTS · DevEco",
-      platform: "HarmonyOS",
-      link: ""
     }
   ],
 
