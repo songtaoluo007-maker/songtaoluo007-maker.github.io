@@ -1,6 +1,7 @@
 /* ============================================================
    网站内容配置 — 改这个文件就能更新网站全部文字内容
    改完保存提交，1 分钟后网站自动更新（详见 README.md）
+   规则：留空 "" 的链接/字段会自动隐藏，不会渲染成死按钮。
    ============================================================ */
 
 window.CONTENT = {
@@ -9,16 +10,37 @@ window.CONTENT = {
   site: {
     nameZh: "罗松涛",
     nameEn: "SONGTAO LUO",
-    title: "罗松涛 — 把想法造成产品",
-    description: "跨平台独立开发者作品集：Android / HarmonyOS / Web / AI，5 个独立产品的案例与故事。"
+    title: "罗松涛 — AI 应用开发工程师 / 全栈开发者",
+    description: "罗松涛的个人作品集：AI 应用开发与全栈工程师，用 Python、Vue、HarmonyOS 和大模型把想法落地为可用产品。深圳 · 2026 届。",
+    url: "https://songtaoluo007-maker.github.io/",
+    // 简历文件：把你的简历命名为 resume.pdf 放到仓库根目录即可替换占位文件
+    resumeUrl: "resume.pdf"
   },
+
+  /* ---------- 顶部导航（按顺序渲染；href 以 # 开头为页内锚点） ---------- */
+  nav: [
+    { label: "首页", href: "#top" },
+    { label: "项目", href: "#works" },
+    { label: "能力", href: "#skills" },
+    { label: "关于", href: "#about" },
+    { label: "简历", href: "resume.pdf", download: true },
+    { label: "联系", href: "#contact" }
+  ],
 
   /* ---------- 开场首屏 ---------- */
   hero: {
     kicker: "PORTFOLIO — 2026",
+    role: "AI 应用开发工程师 / 全栈开发者",
+    intro: "使用 Python、Vue、HarmonyOS 和大模型，把 AI 能力落地为可以实际使用的完整产品。",
     tagline: "把想法造成产品。",
-    subtitle: "跨平台独立开发者 — Android · HarmonyOS · Web · AI",
-    scrollHint: "滚动探索"
+    status: "深圳 ｜ 2026 届 ｜ 寻求 AI 应用开发 / 全栈开发岗位",
+    scrollHint: "滚动探索",
+    // 首屏按钮：type 决定样式（primary 实心 / ghost 描边 / link 文字链）
+    ctas: [
+      { label: "查看代表项目", href: "#works", type: "primary" },
+      { label: "下载简历", href: "resume.pdf", type: "ghost", download: true },
+      { label: "GitHub", href: "https://github.com/songtaoluo007-maker", type: "ghost", external: true }
+    ]
   },
 
   /* ---------- 数据带（数字会滚动入场） ---------- */
@@ -29,6 +51,32 @@ window.CONTENT = {
     { value: 2, label: "款游戏作品" }
   ],
 
+  /* ---------- 核心能力（不用进度条，用「能力 + 项目佐证」表达） ----------
+     items：该方向掌握的具体技术；proof：可填一句项目佐证（留空则不显示）
+  ------------------------------------------------------------ */
+  skills: [
+    {
+      group: "AI 应用开发",
+      items: ["大模型 API 集成", "Prompt 与 Agent 工作流", "OCR", "RAG / 向量数据库", "AI 功能产品化"],
+      proof: "拾忆的 NPC 对话、基金项目的每日 AI 报告与持仓 OCR"
+    },
+    {
+      group: "Web 全栈",
+      items: ["Vue 3", "TypeScript", "FastAPI", "REST API", "SQLite", "前后端联调"],
+      proof: "拾忆、基金智能分析两个 Vue 3 + FastAPI 全栈项目"
+    },
+    {
+      group: "移动端开发",
+      items: ["HarmonyOS", "ArkTS", "ArkUI", "Android", "Java"],
+      proof: "BattleCity 坦克大战、三问学习机、小乖记账"
+    },
+    {
+      group: "工程与交付",
+      items: ["Git / GitHub", "PyInstaller 打包", "云部署", "日志与异常处理", "数据持久化", "项目文档"],
+      proof: "基金项目打包为免环境 Windows 桌面应用；拾忆部署于腾讯云"
+    }
+  ],
+
   /* ---------- 精选案例（整屏大案例，左右交错排布） ----------
      video 字段：填演示视频路径（如 "images/shiyi.mp4"）自动循环播放，优先于截图
      image 字段：填截图路径（如 "images/shiyi.png"）则显示截图；有 video 时作为封面
@@ -36,6 +84,7 @@ window.CONTENT = {
      demo  字段：填在线试用地址，会显示「在线试用 ↗」按钮；留空不显示
      portrait 字段：竖屏视频（手机录屏）设为 true，会以手机样机框居中展示
      tone  字段：占位图配色，可选 "green" / "blue" / "amber" / "purple"
+     caseStudy 字段：填详情页路径（如 "projects/memory-healer.html"）会显示「查看案例」按钮
   ------------------------------------------------------------ */
   cases: [
     {
@@ -49,6 +98,7 @@ window.CONTENT = {
       stack: ["Vue 3", "TypeScript", "FastAPI", "DeepSeek", "腾讯云"],
       link: "https://github.com/songtaoluo007-maker/memory-healer",
       linkLabel: "查看仓库",
+      caseStudy: "projects/memory-healer.html",
       video: "images/shiyi-demo.mp4",
       image: "images/shiyi-poster.jpg",
       demo: "",
@@ -65,6 +115,7 @@ window.CONTENT = {
       stack: ["FastAPI", "Vue 3", "SQLite", "DeepSeek", "OCR", "PyInstaller"],
       link: "https://github.com/songtaoluo007-maker/songtaosimi",
       linkLabel: "查看仓库",
+      caseStudy: "projects/fund-intelligence.html",
       video: "images/fund-demo.mp4",
       image: "images/fund-poster.jpg",
       demo: "",
@@ -81,6 +132,7 @@ window.CONTENT = {
       stack: ["ArkTS", "ArkUI", "HarmonyOS", "Canvas", "游戏设计"],
       link: "",
       linkLabel: "",
+      caseStudy: "projects/battle-city.html",
       video: "images/tank-demo.mp4",
       image: "images/tank-poster.jpg",
       portrait: true,
@@ -90,7 +142,8 @@ window.CONTENT = {
   ],
 
   /* ---------- 更多作品（紧凑卡片网格） ----------
-     link 留空 "" 表示私有项目，卡片会显示 PRIVATE 标记
+     link 留空 "" 表示私有项目，卡片会显示「代码暂未公开」而非死路
+     caseStudy 可选：填详情页路径会显示「查看案例」入口
   ------------------------------------------------------------ */
   works: [
     {
@@ -98,21 +151,23 @@ window.CONTENT = {
       desc: "面向 AI 时代大学生的认知闭环工具——提出一个问题，自动生成课程空间，按「心智模型 → 学术争议 → 深度测评」三问法完成学习闭环。",
       stack: "ArkTS · FastAPI · ChromaDB",
       platform: "HarmonyOS",
-      link: ""
+      link: "",
+      caseStudy: ""
     },
     {
       title: "小乖记账",
       desc: "原生 Android 记账应用——收支记录、分类统计、数据本地化，从需求到交付的一次完整移动端实践。",
       stack: "Java · Android",
       platform: "Android",
-      link: "https://github.com/songtaoluo007-maker/xiaoguai-accounting"
+      link: "https://github.com/songtaoluo007-maker/xiaoguai-accounting",
+      caseStudy: ""
     }
   ],
 
   /* ---------- 关于 ---------- */
   about: {
     heading: "一个人，从想法到上线",
-    text: "我是罗松涛，一名跨平台独立开发者。从 Android 到 HarmonyOS，从 Web 到 Windows 桌面，从课程作业到黑客松——我习惯一个人把产品从想法推到可用：需求、架构、前后端、AI 集成、打包发布，全栈到端。",
+    text: "我是罗松涛，一名跨平台独立开发者，目前在深圳，2026 届，正在寻求 AI 应用开发 / 全栈开发岗位。从 Android 到 HarmonyOS，从 Web 到 Windows 桌面，从课程作业到黑客松——我习惯一个人把产品从想法推到可用：需求、架构、前后端、AI 集成、打包发布，全栈到端。",
     platforms: [
       { name: "Android", detail: "Java" },
       { name: "HarmonyOS", detail: "ArkTS · ArkUI" },
@@ -121,6 +176,14 @@ window.CONTENT = {
     ]
   },
 
+  /* ---------- 证书 ----------
+     TODO：以下为占位，请把 name 改成证书的准确全称后再公开展示，不要使用不确定的名称
+  ------------------------------------------------------------ */
+  certificates: [
+    { name: "TODO：华为 HCIP-昇腾 AI 相关认证（请填准确全称）", issuer: "华为 Huawei", focus: "昇腾 AI / 大模型" },
+    { name: "TODO：HarmonyOS 高级开发者认证（请填准确全称）", issuer: "华为 Huawei", focus: "HarmonyOS 应用开发" }
+  ],
+
   /* ---------- 联系 ---------- */
   contact: {
     headline: "找我聊聊",
@@ -128,5 +191,13 @@ window.CONTENT = {
     email: "songtaoluo007@gmail.com",
     github: "https://github.com/songtaoluo007-maker",
     marquee: "OPEN FOR COLLABORATION — 把想法造成产品 — "
+  },
+
+  /* ---------- SEO / 社交分享（阶段 7 使用） ---------- */
+  seo: {
+    ogImage: "images/og-cover.jpg",
+    themeColor: "#070709",
+    author: "罗松涛 Songtao Luo",
+    twitterCard: "summary_large_image"
   }
 };

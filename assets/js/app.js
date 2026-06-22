@@ -12,6 +12,18 @@
   document.querySelector('meta[name="description"]').content = C.site.description;
   document.getElementById('logo').innerHTML = C.site.nameEn.replace(/ /g, '&nbsp;') + '&nbsp;<b>●</b>';
 
+  /* 顶部导航链接（来自 content.nav；# 开头为页内锚点，其余按需外链/下载） */
+  const navLinks = document.getElementById('navLinks');
+  if (navLinks && Array.isArray(C.nav)) {
+    navLinks.innerHTML = C.nav.map(n => {
+      const ext = n.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      const dl = n.download ? ' download' : '';
+      return `<a href="${n.href}"${ext}${dl}>${n.label}</a>`;
+    }).join('');
+  }
+
+  const pad2 = n => (n < 10 ? '0' + n : '' + n);
+
   /* 占位卡配色 */
   const TONES = {
     green: { panel: '#0d1f1a', border: '#1d3b33', accent: '#2dd4a7', block: '#15302a' },
@@ -43,13 +55,22 @@
 
   document.getElementById('app').innerHTML = `
 <section class="hero" id="top">
-  <canvas id="au1"></canvas>
+  <canvas id="au1" aria-hidden="true"></canvas>
   <div class="wrap inner">
     <div class="kicker rv" style="--d:.05s">${C.hero.kicker}</div>
     <h1 class="rv" style="--d:.15s">${C.site.nameZh}</h1>
-    <div class="tag rv" style="--d:.3s">${C.hero.tagline}</div>
-    <div class="foot rv" style="--d:.45s">
-      <div class="sub">${C.hero.subtitle}</div>
+    <div class="role rv" style="--d:.24s">${C.hero.role}</div>
+    <p class="intro rv" style="--d:.32s">${C.hero.intro}</p>
+    <div class="tag rv" style="--d:.4s">${C.hero.tagline}</div>
+    <div class="ctas rv" style="--d:.48s">
+      ${C.hero.ctas.map(c => {
+        const ext = c.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+        const dl = c.download ? ' download' : '';
+        return `<a class="btn btn-${c.type}" href="${c.href}"${ext}${dl}>${c.label}${c.external ? ' ↗' : ''}</a>`;
+      }).join('')}
+    </div>
+    <div class="foot rv" style="--d:.56s">
+      <div class="sub">${C.hero.status}</div>
       <div class="hint">${C.hero.scrollHint} <i>↓</i></div>
     </div>
   </div>
@@ -59,8 +80,20 @@
   ${C.stats.map((s, i) => `<div class="stat rv" style="--d:${i * .08}s"><div class="num"><span class="cnt" data-v="${s.value}">0</span><em>·</em></div><div class="lbl">${s.label}</div></div>`).join('')}
 </div></section>
 
+<section class="skills" id="skills"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">01 — 核心能力</span><h2>能做什么，凭什么</h2></div>
+  <div class="skill-grid">
+    ${C.skills.map((s, i) => `
+    <div class="skill rv" style="--d:${i * .08}s">
+      <h3>${s.group}</h3>
+      <div class="tags">${s.items.map(it => `<span>${it}</span>`).join('')}</div>
+      ${s.proof ? `<p class="proof">${s.proof}</p>` : ''}
+    </div>`).join('')}
+  </div>
+</div></section>
+
 <section id="works"><div class="wrap">
-  <div class="sec-head rv"><span class="idx">01 — 精选案例</span><h2>作品，和它们的故事</h2></div>
+  <div class="sec-head rv"><span class="idx">02 — 精选案例</span><h2>作品，和它们的故事</h2></div>
   ${C.cases.map((cs, i) => `
   <div class="case${i % 2 ? ' flip' : ''}">
     <div class="txt">
@@ -82,11 +115,11 @@
 </div></section>
 
 <section class="works"><div class="wrap">
-  <div class="sec-head rv"><span class="idx">02 — 更多作品</span><h2>同样从零到一</h2></div>
+  <div class="sec-head rv"><span class="idx">03 — 更多作品</span><h2>同样从零到一</h2></div>
   <div class="grid">
     ${C.works.map((w, i) => `
     <div class="work rv" style="--d:${i * .1}s">
-      <div class="top"><span class="no">0${i + 3}</span><span class="pf">${w.platform}</span></div>
+      <div class="top"><span class="no">${pad2(C.cases.length + i + 1)}</span><span class="pf">${w.platform}</span></div>
       <h4>${w.title}</h4>
       <p>${w.desc}</p>
       <div class="bot"><span class="stk">${w.stack}</span>
@@ -98,7 +131,7 @@
 
 <section class="about" id="about"><div class="wrap grid">
   <div>
-    <div class="sec-head" style="padding:0 0 10px"><span class="idx">03 — 关于</span></div>
+    <div class="sec-head" style="padding:0 0 10px"><span class="idx">04 — 关于</span></div>
     <h2 class="rv">${C.about.heading}</h2>
     <p class="txt rv" style="--d:.12s">${C.about.text}</p>
   </div>
@@ -108,9 +141,9 @@
 </div></section>
 
 <section class="contact" id="contact">
-  <canvas id="au2"></canvas>
+  <canvas id="au2" aria-hidden="true"></canvas>
   <div class="inner">
-    <div class="k rv">04 — CONTACT</div>
+    <div class="k rv">05 — CONTACT</div>
     <h2 class="rv" style="--d:.1s">${C.contact.headline}</h2>
     <p class="sub rv" style="--d:.18s">${C.contact.sub}</p>
     <div class="rv" style="--d:.26s"><a class="mail" href="mailto:${C.contact.email}">${C.contact.email}</a></div>
@@ -161,6 +194,24 @@
   /* 导航毛玻璃 */
   const nav = document.getElementById('nav');
   addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50), { passive: true });
+
+  /* 移动端折叠菜单 */
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle && navLinks) {
+    const closeMenu = () => {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', '打开菜单');
+      document.body.classList.remove('menu-open');
+    };
+    navToggle.addEventListener('click', () => {
+      const open = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!open));
+      navToggle.setAttribute('aria-label', open ? '打开菜单' : '关闭菜单');
+      document.body.classList.toggle('menu-open', !open);
+    });
+    navLinks.addEventListener('click', e => { if (e.target.closest('a')) closeMenu(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  }
 
   /* 视差 */
   let pr = []; function collectPara() { pr = [...document.querySelectorAll('.para')]; }

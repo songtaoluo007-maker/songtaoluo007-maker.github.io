@@ -17,11 +17,12 @@
 <body>
 <div class="cur" id="cur"></div>
 <div class="grain" id="grain"></div>
-<nav id="nav"><div class="bar">
-  <a href="#top" class="logo" id="logo"></a>
-  <div class="links">
-    <a href="#works">作品</a><a href="#about">关于</a><a href="#contact">联系</a>
-  </div>
+<nav id="nav" aria-label="主导航"><div class="bar">
+  <a href="#top" class="logo" id="logo" aria-label="罗松涛 — 回到顶部"></a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="links" id="navLinks"></div>
 </div></nav>
 <main id="app"></main>
 
