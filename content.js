@@ -237,13 +237,12 @@ window.CONTENT = {
   },
 
   /* ---------- 证书（显示在「关于」区） ----------
-     占位项设了 hidden:true 不会显示在页面上。
-     填好证书的准确全称后，把对应项的 hidden 改成 false（或删掉该字段）即可展示。
-     不要使用不确定的名称。
+     新增：照格式加一项；想暂时隐藏某项加 hidden: true 即可。请勿填写不确定的名称。
   ------------------------------------------------------------ */
   certificates: [
-    { name: "TODO：华为 HCIP-昇腾 AI 相关认证（请填准确全称）", issuer: "华为 Huawei", focus: "昇腾 AI / 大模型", hidden: true },
-    { name: "TODO：HarmonyOS 高级开发者认证（请填准确全称）", issuer: "华为 Huawei", focus: "HarmonyOS 应用开发", hidden: true }
+    { name: "HCIP-AI Solution Architect", issuer: "华为 Huawei", focus: "AI 解决方案架构" },
+    { name: "HCIP-AI-MindSpore Developer", issuer: "华为 Huawei", focus: "MindSpore · 昇腾 AI 开发" },
+    { name: "HarmonyOS 应用开发者高级认证", issuer: "华为开发者联盟", focus: "HarmonyOS 应用开发（高级）" }
   ],
 
   /* ---------- 联系 ---------- */

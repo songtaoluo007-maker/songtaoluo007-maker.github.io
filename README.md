@@ -136,8 +136,7 @@ git add . && git commit -m "更新内容" && git push
 
 ## 已知事项 / 待补素材
 
-- `resume.pdf`、`images/og-cover.jpg` 为占位，待替换为真实文件。
-- `certificates[]` 两张证书为 TODO 占位（`hidden:true`，页面不显示），待填准确全称。
+- `images/og-cover.jpg`（社交分享图）为占位，待替换；缺失仅表现为分享链接无预览图，不影响页面。
 - 三个案例页的 `detail{}`（架构 / 我的职责 / 团队 / 周期 / 技术难点 / 取舍 / 不足 / 优化）多为空，逐步补全后会自动出现在案例页。
 
 ## 后续可选优化
