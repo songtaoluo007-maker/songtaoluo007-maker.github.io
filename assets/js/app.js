@@ -23,6 +23,7 @@
   }
 
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
+  const visibleCerts = (C.certificates || []).filter(c => !c.hidden && c.name);
 
   /* 占位卡配色 */
   const TONES = {
@@ -106,8 +107,8 @@
       <div class="row rv" style="--d:.32s"><span class="k">成果</span><span class="v">${cs.outcome}</span></div>
       <div class="pills rv" style="--d:.38s">${cs.stack.map(s => `<span>${s}</span>`).join('')}</div>
       <div class="lnks rv" style="--d:.42s">
-        ${cs.demo ? `<a class="btn-demo" href="${cs.demo}" target="_blank" rel="noopener">${cs.demoLabel || '在线试用'} ↗</a>` : ''}
-        ${cs.link ? `<a class="lnk" href="${cs.link}" target="_blank" rel="noopener">${cs.linkLabel || '查看项目'} →</a>` : ''}
+        ${cs.demo ? `<a class="btn-demo" href="${cs.demo}" target="_blank" rel="noopener noreferrer" aria-label="${cs.title} ${cs.demoLabel || '在线试用'}（新窗口打开）">${cs.demoLabel || '在线试用'} ↗</a>` : ''}
+        ${cs.link ? `<a class="lnk" href="${cs.link}" target="_blank" rel="noopener noreferrer" aria-label="${cs.title} ${cs.linkLabel || '查看项目'}（新窗口打开）">${cs.linkLabel || '查看项目'} →</a>` : ''}
       </div>
     </div>
     <div class="vis rv" style="--d:.2s">${caseVisual(cs)}</div>
@@ -123,22 +124,26 @@
       <h4>${w.title}</h4>
       <p>${w.desc}</p>
       <div class="bot"><span class="stk">${w.stack}</span>
-        ${w.link ? `<a class="go" href="${w.link}" target="_blank" rel="noopener">仓库 →</a>` : `<span class="priv">PRIVATE</span>`}
+        ${w.link ? `<a class="go" href="${w.link}" target="_blank" rel="noopener noreferrer" aria-label="${w.title} GitHub 仓库（新窗口打开）">仓库 →</a>` : `<span class="priv">代码暂未公开</span>`}
       </div>
     </div>`).join('')}
   </div>
 </div></section>
 
-<section class="about" id="about"><div class="wrap grid">
-  <div>
-    <div class="sec-head" style="padding:0 0 10px"><span class="idx">04 — 关于</span></div>
-    <h2 class="rv">${C.about.heading}</h2>
-    <p class="txt rv" style="--d:.12s">${C.about.text}</p>
+<section class="about" id="about">
+  <div class="wrap grid">
+    <div>
+      <div class="sec-head" style="padding:0 0 10px"><span class="idx">04 — 关于</span></div>
+      <h2 class="rv">${C.about.heading}</h2>
+      <p class="txt rv" style="--d:.12s">${C.about.text}</p>
+      ${C.about.meta && C.about.meta.length ? `<div class="meta rv" style="--d:.16s">${C.about.meta.map(m => `<span class="meta-item"><b>${m.k}</b>${m.v}</span>`).join('')}</div>` : ''}
+    </div>
+    <div class="pl rv" style="--d:.2s;align-self:end">
+      ${C.about.platforms.map(p => `<div class="row"><span class="n">${p.name}</span><span class="d">${p.detail}</span></div>`).join('')}
+    </div>
   </div>
-  <div class="pl rv" style="--d:.2s;align-self:end">
-    ${C.about.platforms.map(p => `<div class="row"><span class="n">${p.name}</span><span class="d">${p.detail}</span></div>`).join('')}
-  </div>
-</div></section>
+  ${visibleCerts.length ? `<div class="wrap certs-wrap rv"><h3 class="certs-title">证书</h3><div class="certs">${visibleCerts.map(c => `<div class="cert"><div class="cert-name">${c.name}</div><div class="cert-meta">${[c.issuer, c.focus].filter(Boolean).join(' · ')}</div></div>`).join('')}</div></div>` : ''}
+</section>
 
 <section class="contact" id="contact">
   <canvas id="au2" aria-hidden="true"></canvas>
@@ -146,8 +151,8 @@
     <div class="k rv">05 — CONTACT</div>
     <h2 class="rv" style="--d:.1s">${C.contact.headline}</h2>
     <p class="sub rv" style="--d:.18s">${C.contact.sub}</p>
-    <div class="rv" style="--d:.26s"><a class="mail" href="mailto:${C.contact.email}">${C.contact.email}</a></div>
-    <div class="rv" style="--d:.34s"><a class="gh" href="${C.contact.github}" target="_blank" rel="noopener">GitHub ↗</a></div>
+    <div class="rv" style="--d:.26s"><a class="mail" href="mailto:${C.contact.email}" aria-label="发邮件给 ${C.contact.email}">${C.contact.email}</a></div>
+    <div class="rv" style="--d:.34s"><a class="gh" href="${C.contact.github}" target="_blank" rel="noopener noreferrer" aria-label="罗松涛的 GitHub（新窗口打开）">GitHub ↗</a></div>
   </div>
   <div class="inner-foot">
     <div class="marq"><div class="track">${(`<span>${C.contact.marquee.replace(/—/g, '<b>—</b>')}</span>`).repeat(8)}</div></div>

@@ -94,7 +94,7 @@ window.CONTENT = {
       positioning: "进入一位阿尔茨海默症老人的记忆，把他遗失的人生一片片拼回来。",
       challenge: "传统叙事游戏的对话是写死的，玩家无法真正参与故事——而失忆题材恰恰最需要自由对话带来的真实感。",
       solution: "每个 NPC 都由大模型驱动，任意输入都能动态回应；记忆碎片收集 + 剧情分支 + 三种结局；Vue 3 + FastAPI 全栈，部署于腾讯云。",
-      outcome: "AI 对话与叙事游戏的完整闭环：自由对话、碎片系统、分支结局、SVG 动画场景、五位存档一应俱全。",
+      outcome: "AI 对话与叙事游戏的完整闭环：自由对话、记忆碎片系统、剧情分支、三种结局、SVG 动画场景与五位玩家存档。",
       stack: ["Vue 3", "TypeScript", "FastAPI", "DeepSeek", "腾讯云"],
       link: "https://github.com/songtaoluo007-maker/memory-healer",
       linkLabel: "查看仓库",
@@ -128,7 +128,7 @@ window.CONTENT = {
       positioning: "经典坦克大战，被重制成一场有指挥系统的二战战役。",
       challenge: "复刻坦克大战不难，难的是让它在今天还值得一玩——纯复古复刻缺乏深度，也撑不起重复游玩的动力。",
       solution: "ArkTS 从零实现游戏循环与碰撞检测；在经典玩法之上加入战役编年体（莫斯科到库尔斯克四大战役）、攻防双阵营、载具采购（T-34/76 到 SU-152）和消耗指挥点的八种战术指令——集火、空袭、烟幕、维修各有用途。",
-      outcome: "战役、车库、成就、玩家档案、数据持久化一应俱全，军事风 UI 逐帧手绘，课程作业长成了完整游戏。",
+      outcome: "战役、车库、成就、玩家档案与数据持久化均已落地，军事风 UI 逐帧手绘——一份课程作业长成了完整游戏。",
       stack: ["ArkTS", "ArkUI", "HarmonyOS", "Canvas", "游戏设计"],
       link: "",
       linkLabel: "",
@@ -168,6 +168,11 @@ window.CONTENT = {
   about: {
     heading: "一个人，从想法到上线",
     text: "我是罗松涛，一名跨平台独立开发者，目前在深圳，2026 届，正在寻求 AI 应用开发 / 全栈开发岗位。从 Android 到 HarmonyOS，从 Web 到 Windows 桌面，从课程作业到黑客松——我习惯一个人把产品从想法推到可用：需求、架构、前后端、AI 集成、打包发布，全栈到端。",
+    meta: [
+      { k: "所在城市", v: "深圳" },
+      { k: "求职方向", v: "AI 应用开发 / 全栈开发" },
+      { k: "状态", v: "2026 届" }
+    ],
     platforms: [
       { name: "Android", detail: "Java" },
       { name: "HarmonyOS", detail: "ArkTS · ArkUI" },
@@ -176,12 +181,14 @@ window.CONTENT = {
     ]
   },
 
-  /* ---------- 证书 ----------
-     TODO：以下为占位，请把 name 改成证书的准确全称后再公开展示，不要使用不确定的名称
+  /* ---------- 证书（显示在「关于」区） ----------
+     占位项设了 hidden:true 不会显示在页面上。
+     填好证书的准确全称后，把对应项的 hidden 改成 false（或删掉该字段）即可展示。
+     不要使用不确定的名称。
   ------------------------------------------------------------ */
   certificates: [
-    { name: "TODO：华为 HCIP-昇腾 AI 相关认证（请填准确全称）", issuer: "华为 Huawei", focus: "昇腾 AI / 大模型" },
-    { name: "TODO：HarmonyOS 高级开发者认证（请填准确全称）", issuer: "华为 Huawei", focus: "HarmonyOS 应用开发" }
+    { name: "TODO：华为 HCIP-昇腾 AI 相关认证（请填准确全称）", issuer: "华为 Huawei", focus: "昇腾 AI / 大模型", hidden: true },
+    { name: "TODO：HarmonyOS 高级开发者认证（请填准确全称）", issuer: "华为 Huawei", focus: "HarmonyOS 应用开发", hidden: true }
   ],
 
   /* ---------- 联系 ---------- */
