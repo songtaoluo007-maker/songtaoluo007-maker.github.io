@@ -54,7 +54,7 @@
   }
 
   document.getElementById('app').innerHTML = `
-<section class="hero" id="top">
+<section class="hero" id="top" aria-label="首屏">
   <canvas id="au1" aria-hidden="true"></canvas>
   <div class="wrap inner">
     <div class="kicker rv" style="--d:.05s">${C.hero.kicker}</div>
@@ -76,11 +76,11 @@
   </div>
 </section>
 
-<section class="stats"><div class="wrap grid">
+<section class="stats" aria-label="数据概览"><div class="wrap grid">
   ${C.stats.map((s, i) => `<div class="stat rv" style="--d:${i * .08}s"><div class="num"><span class="cnt" data-v="${s.value}">0</span><em>·</em></div><div class="lbl">${s.label}</div></div>`).join('')}
 </div></section>
 
-<section class="skills" id="skills"><div class="wrap">
+<section class="skills" id="skills" aria-label="核心能力"><div class="wrap">
   <div class="sec-head rv"><span class="idx">01 — 核心能力</span><h2>能做什么，凭什么</h2></div>
   <div class="skill-grid">
     ${C.skills.map((s, i) => `
@@ -92,7 +92,7 @@
   </div>
 </div></section>
 
-<section id="works"><div class="wrap">
+<section id="works" aria-label="精选案例"><div class="wrap">
   <div class="sec-head rv"><span class="idx">02 — 精选案例</span><h2>作品，和它们的故事</h2></div>
   ${C.cases.map((cs, i) => `
   <div class="case${i % 2 ? ' flip' : ''}">
@@ -115,7 +115,7 @@
   </div>`).join('')}
 </div></section>
 
-<section class="works"><div class="wrap">
+<section class="works" aria-label="更多作品"><div class="wrap">
   <div class="sec-head rv"><span class="idx">03 — 更多作品</span><h2>同样从零到一</h2></div>
   <div class="grid">
     ${C.works.map((w, i) => `
@@ -130,7 +130,7 @@
   </div>
 </div></section>
 
-<section class="about" id="about">
+<section class="about" id="about" aria-label="关于我">
   <div class="wrap grid">
     <div>
       <div class="sec-head" style="padding:0 0 10px"><span class="idx">04 — 关于</span></div>
@@ -145,7 +145,7 @@
   ${visibleCerts.length ? `<div class="wrap certs-wrap rv"><h3 class="certs-title">证书</h3><div class="certs">${visibleCerts.map(c => `<div class="cert"><div class="cert-name">${c.name}</div><div class="cert-meta">${[c.issuer, c.focus].filter(Boolean).join(' · ')}</div></div>`).join('')}</div></div>` : ''}
 </section>
 
-<section class="contact" id="contact">
+<section class="contact" id="contact" aria-label="联系">
   <canvas id="au2" aria-hidden="true"></canvas>
   <div class="inner">
     <div class="k rv">05 — CONTACT</div>
@@ -219,6 +219,21 @@
     });
     navLinks.addEventListener('click', e => { if (e.target.closest('a')) closeMenu(); });
     addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  }
+
+  /* 当前区块高亮（导航 aria-current）：取顶部已滚过参考线的最后一个区块 */
+  const spyLinks = navLinks ? [...navLinks.querySelectorAll('a[href^="#"]')] : [];
+  if (spyLinks.length) {
+    const spyIds = ['top', 'skills', 'works', 'about', 'contact'];
+    let spyTick = false;
+    const updateSpy = () => {
+      const y = scrollY + 120;
+      let cur = 'top';
+      spyIds.forEach(id => { const el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
+      spyLinks.forEach(a => { a.getAttribute('href') === '#' + cur ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'); });
+    };
+    addEventListener('scroll', () => { if (spyTick) return; spyTick = true; requestAnimationFrame(() => { updateSpy(); spyTick = false; }); }, { passive: true });
+    updateSpy();
   }
 
   /* 视差 */

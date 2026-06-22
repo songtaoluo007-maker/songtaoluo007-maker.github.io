@@ -1,6 +1,6 @@
 :root{
   --bg:#070709; --bg2:#0c0c0f; --panel:#101014;
-  --ink:#f5f3ee; --ink2:#cfccc1; --mut:#a8a69d; --dim:#79776f;
+  --ink:#f5f3ee; --ink2:#cfccc1; --mut:#a8a69d; --dim:#8a887e;
   --line:#222226; --line2:#2e2e34;
   --accent:#2dd4a7;
   --serif:'Noto Serif SC',Georgia,serif;
@@ -132,7 +132,7 @@ video.shot{aspect-ratio:auto;max-height:540px;width:auto;max-width:100%;margin:0
 .marq span{font-family:var(--mono);font-size:13px;letter-spacing:3px;color:var(--dim);white-space:nowrap;padding-right:8px}
 .marq span b{color:var(--accent);font-weight:400}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-footer{position:relative;z-index:2;text-align:center;font-family:var(--mono);font-size:11.5px;color:#55544e;padding:22px 20px 28px}
+footer{position:relative;z-index:2;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--dim);padding:22px 20px 28px}
 
 .rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
 .rv.on{opacity:1;transform:none}
@@ -253,3 +253,10 @@ footer{position:relative;z-index:2;text-align:center;font-family:var(--mono);fon
 .vbtn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .vbtn::before{content:"\275A\275A";letter-spacing:2px}
 .vbox.paused .vbtn::before{content:"\25B6";letter-spacing:0}
+
+/* ============ 阶段6：无障碍 ============ */
+.skip{position:fixed;top:10px;left:10px;z-index:400;background:var(--accent);color:#06120e;font-family:var(--mono);font-size:13px;font-weight:500;padding:10px 16px;border-radius:8px;transform:translateY(-160%);transition:transform .25s var(--ease)}
+.skip:focus{transform:none;outline:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+nav .links a[aria-current]{color:var(--ink)}
+nav .links a[aria-current]::after{width:100%}

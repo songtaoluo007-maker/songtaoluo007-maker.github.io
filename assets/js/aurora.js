@@ -23,10 +23,11 @@
     const cv = document.getElementById(id); if (!cv) return;
     const x = cv.getContext('2d');
     const scale = Math.min(devicePixelRatio || 1, 1.5);
-    let w, h, run = false, raf = 0, mx = .5, my = .5, tx = .5, ty = .5;
+    let w, h, run = false, raf = 0, mx = .5, my = .5, tx = .5, ty = .5, onscreen = false;
     const blur = innerWidth < 768 ? 42 : 68;
     function rs() { w = cv.width = cv.offsetWidth * scale; h = cv.height = cv.offsetHeight * scale; }
-    rs(); addEventListener('resize', rs);
+    rs();
+    let rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(rs, 150); }); // resize 防抖
     if (matchMedia('(pointer:fine)').matches) {
       cv.parentElement.addEventListener('pointermove', e => {
         const r = cv.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = (e.clientY - r.top) / r.height;
@@ -47,10 +48,13 @@
     }
     function loop(t) { if (!run) return; paint(t); raf = requestAnimationFrame(loop); }
     if (RM) { paint(0); return; }
-    new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting && !run) { run = true; raf = requestAnimationFrame(loop); }
-      else if (!e.isIntersecting && run) { run = false; cancelAnimationFrame(raf); }
-    })).observe(cv);
+    function setRun() {
+      const should = onscreen && !document.hidden;       // 离开视口或标签页隐藏都暂停
+      if (should && !run) { run = true; raf = requestAnimationFrame(loop); }
+      else if (!should && run) { run = false; cancelAnimationFrame(raf); }
+    }
+    new IntersectionObserver(es => es.forEach(e => { onscreen = e.isIntersecting; setRun(); })).observe(cv);
+    document.addEventListener('visibilitychange', setRun);
   }
 
   window.PortfolioFX = { mountGrain, aurora };
