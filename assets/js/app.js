@@ -35,8 +35,7 @@
 
   /* 案例视觉：竖屏视频用手机样机框，横屏视频/截图直接铺，否则画抽象占位卡 */
   function caseVisual(cs) {
-    if (cs.video && cs.portrait) return `<div class="phone para"><video src="${cs.video}" autoplay muted loop playsinline ${cs.image ? `poster="${cs.image}"` : ''} aria-label="${cs.title} 实机演示"></video></div>`;
-    if (cs.video) return `<video class="shot para" src="${cs.video}" autoplay muted loop playsinline ${cs.image ? `poster="${cs.image}"` : ''} aria-label="${cs.title} 实机演示"></video>`;
+    if (cs.video) return PortfolioVideo.markup({ video: cs.video, image: cs.image, portrait: cs.portrait, title: cs.title, cls: 'para' });
     if (cs.image) return `<img class="shot para" src="${cs.image}" alt="${cs.title} 界面截图">`;
     const t = TONES[cs.tone] || TONES.green;
     return `<div class="ph para" style="background:${t.panel};border-color:${t.border}">
@@ -177,6 +176,9 @@
     ]);
   }
 
+  /* 演示视频懒播放 + 控制 */
+  if (window.PortfolioVideo) PortfolioVideo.init();
+
   /* 滚动入场 */
   const obs = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
@@ -239,18 +241,26 @@
     }, { passive: true });
   }
 
-  /* 自定义光标 */
+  /* 自定义光标（渐进增强：JS 成功初始化后才隐藏系统光标，出错则保留系统光标） */
   if (matchMedia('(pointer:fine)').matches && !RM) {
     const cur = document.getElementById('cur');
-    let cx = innerWidth / 2, cy = innerHeight / 2, px = cx, py = cy;
-    addEventListener('pointermove', e => { cx = e.clientX; cy = e.clientY; });
-    (function follow() {
-      px += (cx - px) * .18; py += (cy - py) * .18;
-      cur.style.transform = `translate(${px}px,${py}px) translate(-50%,-50%)`;
-      requestAnimationFrame(follow);
-    })();
-    document.addEventListener('mouseover', e => {
-      cur.classList.toggle('big', !!e.target.closest('a,button,.work'));
-    });
+    if (cur) {
+      document.documentElement.classList.add('custom-cursor');
+      let cx = innerWidth / 2, cy = innerHeight / 2, px = cx, py = cy;
+      addEventListener('pointermove', e => { cx = e.clientX; cy = e.clientY; });
+      (function follow() {
+        px += (cx - px) * .18; py += (cy - py) * .18;
+        cur.style.transform = `translate(${px}px,${py}px) translate(-50%,-50%)`;
+        requestAnimationFrame(follow);
+      })();
+      document.addEventListener('mouseover', e => {
+        cur.classList.toggle('big', !!e.target.closest('a,button,.work'));
+      });
+      // 鼠标移出窗口 / 窗口失焦时隐藏自定义光标，回来再显示
+      document.addEventListener('mouseleave', () => { cur.style.opacity = '0'; });
+      document.addEventListener('mouseenter', () => { cur.style.opacity = '1'; });
+      addEventListener('blur', () => { cur.style.opacity = '0'; });
+      addEventListener('focus', () => { cur.style.opacity = '1'; });
+    }
   }
 })();

@@ -31,8 +31,7 @@
   if (md) md.content = (has(p.positioning) ? p.positioning + ' ' : '') + p.title + ' 项目案例 — ' + C.site.nameZh;
 
   function media() {
-    if (p.video && p.portrait) return `<div class="phone"><video src="${p.video}" autoplay muted loop playsinline ${p.image ? `poster="${p.image}"` : ''} aria-label="${p.title} 实机演示"></video></div>`;
-    if (p.video) return `<video class="shot" src="${p.video}" autoplay muted loop playsinline ${p.image ? `poster="${p.image}"` : ''} aria-label="${p.title} 实机演示"></video>`;
+    if (p.video && window.PortfolioVideo) return PortfolioVideo.markup({ video: p.video, image: p.image, portrait: p.portrait, title: p.title });
     if (p.image) return `<img class="shot" src="${p.image}" alt="${p.title} 界面截图">`;
     return '';
   }
@@ -110,6 +109,8 @@
       { x: .82, y: .5, r: .26, c: '#0f766e', vx: -.00008, vy: .0001, ax: .09, ay: .07, p: 2, a: .3, pr: .07 }
     ]);
   }
+
+  if (window.PortfolioVideo) PortfolioVideo.init();
 
   const nav = document.getElementById('nav');
   if (nav) addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50), { passive: true });

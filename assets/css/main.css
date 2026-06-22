@@ -21,9 +21,9 @@ a{color:inherit;text-decoration:none}
 
 .cur{display:none}
 @media(pointer:fine){
-  body,a,button{cursor:none}
-  .cur{display:block;position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:300;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease)}
-  .cur.big{width:52px;height:52px}
+  html.custom-cursor,html.custom-cursor a,html.custom-cursor button{cursor:none}
+  html.custom-cursor .cur{display:block;position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:300;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),opacity .3s}
+  html.custom-cursor .cur.big{width:52px;height:52px}
 }
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
@@ -243,3 +243,13 @@ footer{position:relative;z-index:2;text-align:center;font-family:var(--mono);fon
 .p-nav a b{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--ink);transition:color .3s}
 .p-nav a:hover b{color:var(--accent)}
 @media(max-width:600px){ .p-nav a b{font-size:15px} }
+
+/* ============ 阶段5：视频懒播放控制 ============ */
+.vbox{position:relative}
+.shotbox{display:block}
+.vbtn{position:absolute;right:14px;bottom:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:rgba(7,7,9,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--ink);cursor:pointer;z-index:4;display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;opacity:0;transition:opacity .3s,border-color .3s,color .3s}
+.vbox:hover .vbtn,.vbox.paused .vbtn,.vbtn:focus-visible{opacity:1}
+.vbtn:hover{border-color:var(--accent);color:var(--accent)}
+.vbtn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vbtn::before{content:"\275A\275A";letter-spacing:2px}
+.vbox.paused .vbtn::before{content:"\25B6";letter-spacing:0}
