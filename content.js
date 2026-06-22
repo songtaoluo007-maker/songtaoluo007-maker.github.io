@@ -89,6 +89,7 @@ window.CONTENT = {
   cases: [
     {
       tag: "WEB · AI 叙事游戏 — 腾讯云黑客松作品",
+      id: "memory-healer",
       title: "拾忆",
       titleEn: "Memory Healer",
       positioning: "进入一位阿尔茨海默症老人的记忆，把他遗失的人生一片片拼回来。",
@@ -102,10 +103,28 @@ window.CONTENT = {
       video: "images/shiyi-demo.mp4",
       image: "images/shiyi-poster.jpg",
       demo: "",
-      tone: "green"
+      tone: "green",
+      download: "",
+      // 案例详情页字段：留空 "" 的不会显示在页面上，填好即出现（详见 README）
+      detail: {
+        background: "",        // 项目背景：契机 / 黑客松背景 / 为什么做
+        role: "",              // 我的角色：如「个人独立完成」
+        team: "",              // 团队人数
+        duration: "",          // 开发周期：如「2025.05，约 2 周」
+        architecture: "",      // 系统架构：Vue 3 前端 + FastAPI 后端 + DeepSeek
+        architectureImage: "", // 可选：架构图 images/xxx.png
+        flow: [],              // 核心功能流程，每项一步
+        // 建议补：NPC 人设与提示词管理 / 上下文记忆 / 剧情状态机 / 记忆碎片系统 /
+        //        大模型输出约束 / API 超时与降级 / 多结局逻辑 / 前后端通信结构
+        challenges: "",        // 最困难的技术问题
+        tradeoffs: "",         // 解决方案与技术取舍：为什么这样设计
+        shortcomings: "",      // 项目不足
+        future: ""             // 后续优化方向
+      }
     },
     {
       tag: "WINDOWS 桌面 · 全栈 + AI",
+      id: "fund-intelligence",
       title: "基金智能分析",
       titleEn: "Fund Intelligence",
       positioning: "让 DeepSeek 盯盘，你只看结论。",
@@ -119,10 +138,29 @@ window.CONTENT = {
       video: "images/fund-demo.mp4",
       image: "images/fund-poster.jpg",
       demo: "",
-      tone: "blue"
+      tone: "blue",
+      download: "",
+      // 案例详情页字段：留空 "" 的不会显示在页面上，填好即出现
+      detail: {
+        background: "",        // 项目背景
+        role: "",              // 我的角色
+        team: "",              // 团队人数
+        duration: "",          // 开发周期
+        architecture: "",      // 系统架构：FastAPI 后端 + Vue 3 前端 + SQLite + DeepSeek
+        architectureImage: "", // 可选：架构图
+        flow: [],              // 核心功能流程，每项一步
+        // 建议补：前后端架构 / 数据采集流程 / OCR 识别与人工校正 / SQLite 存储 /
+        //        定时任务 / AI 报告生成流程 / 异常处理 / Windows 打包流程 /
+        //        本地隐私设计 / 模型输出风险与免责声明
+        challenges: "",        // 最困难的技术问题
+        tradeoffs: "",         // 解决方案与技术取舍
+        shortcomings: "",      // 项目不足
+        future: ""             // 后续优化方向
+      }
     },
     {
       tag: "HARMONYOS · ARKTS 游戏开发",
+      id: "battle-city",
       title: "BattleCity 坦克大战",
       titleEn: "Armored Frontline",
       positioning: "经典坦克大战，被重制成一场有指挥系统的二战战役。",
@@ -137,7 +175,24 @@ window.CONTENT = {
       image: "images/tank-poster.jpg",
       portrait: true,
       demo: "",
-      tone: "amber"
+      tone: "amber",
+      download: "",
+      // 案例详情页字段：留空 "" 的不会显示在页面上，填好即出现
+      detail: {
+        background: "",        // 项目背景：课程作业 / 为什么做成战役版
+        role: "",              // 我的角色
+        team: "",              // 团队人数
+        duration: "",          // 开发周期
+        architecture: "",      // 系统架构：ArkTS + ArkUI + Canvas 渲染
+        architectureImage: "", // 可选：架构图
+        flow: [],              // 核心功能流程，每项一步
+        // 建议补：ArkTS 游戏循环 / 碰撞检测 / 状态管理 / 数据持久化 / 战役系统 /
+        //        指挥点系统 / 载具系统 / 音频与资源管理 / HarmonyOS 适配
+        challenges: "",        // 最困难的技术问题
+        tradeoffs: "",         // 解决方案与技术取舍
+        shortcomings: "",      // 项目不足
+        future: ""             // 后续优化方向
+      }
     }
   ],
 

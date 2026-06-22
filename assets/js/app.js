@@ -107,7 +107,8 @@
       <div class="row rv" style="--d:.32s"><span class="k">成果</span><span class="v">${cs.outcome}</span></div>
       <div class="pills rv" style="--d:.38s">${cs.stack.map(s => `<span>${s}</span>`).join('')}</div>
       <div class="lnks rv" style="--d:.42s">
-        ${cs.demo ? `<a class="btn-demo" href="${cs.demo}" target="_blank" rel="noopener noreferrer" aria-label="${cs.title} ${cs.demoLabel || '在线试用'}（新窗口打开）">${cs.demoLabel || '在线试用'} ↗</a>` : ''}
+        ${cs.caseStudy ? `<a class="btn-demo" href="${cs.caseStudy}" aria-label="${cs.title} 案例详情">查看案例 →</a>` : ''}
+        ${cs.demo ? `<a class="lnk" href="${cs.demo}" target="_blank" rel="noopener noreferrer" aria-label="${cs.title} ${cs.demoLabel || '在线试用'}（新窗口打开）">${cs.demoLabel || '在线试用'} ↗</a>` : ''}
         ${cs.link ? `<a class="lnk" href="${cs.link}" target="_blank" rel="noopener noreferrer" aria-label="${cs.title} ${cs.linkLabel || '查看项目'}（新窗口打开）">${cs.linkLabel || '查看项目'} →</a>` : ''}
       </div>
     </div>
