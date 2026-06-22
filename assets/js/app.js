@@ -1,0 +1,199 @@
+/* ============================================================
+   页面装配：读取 window.CONTENT，渲染各区块，挂载交互
+   依赖：content.js（数据）、aurora.js（背景视觉，window.PortfolioFX）
+   普通脚本（非 ES module），保证 file:// 双击预览可用。
+   ============================================================ */
+(function () {
+  "use strict";
+  const C = window.CONTENT;
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.title = C.site.title;
+  document.querySelector('meta[name="description"]').content = C.site.description;
+  document.getElementById('logo').innerHTML = C.site.nameEn.replace(/ /g, '&nbsp;') + '&nbsp;<b>●</b>';
+
+  /* 占位卡配色 */
+  const TONES = {
+    green: { panel: '#0d1f1a', border: '#1d3b33', accent: '#2dd4a7', block: '#15302a' },
+    blue: { panel: '#0e1320', border: '#22304d', accent: '#6c9ef8', block: '#141d33' },
+    amber: { panel: '#1f150d', border: '#3b2d1d', accent: '#f0b35e', block: '#302415' },
+    purple: { panel: '#150f20', border: '#2d2345', accent: '#a78bfa', block: '#211733' }
+  };
+
+  /* 案例视觉：竖屏视频用手机样机框，横屏视频/截图直接铺，否则画抽象占位卡 */
+  function caseVisual(cs) {
+    if (cs.video && cs.portrait) return `<div class="phone para"><video src="${cs.video}" autoplay muted loop playsinline ${cs.image ? `poster="${cs.image}"` : ''} aria-label="${cs.title} 实机演示"></video></div>`;
+    if (cs.video) return `<video class="shot para" src="${cs.video}" autoplay muted loop playsinline ${cs.image ? `poster="${cs.image}"` : ''} aria-label="${cs.title} 实机演示"></video>`;
+    if (cs.image) return `<img class="shot para" src="${cs.image}" alt="${cs.title} 界面截图">`;
+    const t = TONES[cs.tone] || TONES.green;
+    return `<div class="ph para" style="background:${t.panel};border-color:${t.border}">
+      <div class="tb"><i style="background:${t.accent}"></i><i style="background:${t.border}"></i><i style="background:${t.border}"></i></div>
+      <div class="bar" style="width:46%;background:${t.border}"></div>
+      <div class="bar" style="width:68%;background:${t.block}"></div>
+      <svg viewBox="0 0 300 78" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="0,64 40,46 80,54 120,28 160,38 200,16 240,26 300,8" fill="none" stroke="${t.accent}" stroke-width="2.5"/>
+        <polyline points="0,70 50,62 100,66 150,52 200,58 250,44 300,40" fill="none" stroke="${t.border}" stroke-width="2"/>
+      </svg>
+      <div class="cards"><i style="background:${t.block}"></i><i style="background:${t.block}"></i></div>
+      <div class="bar" style="width:54%;background:${t.block}"></div>
+      <div class="bar" style="width:38%;background:${t.block}"></div>
+      <div class="ft" style="color:${t.accent}">${cs.titleEn || cs.title} — preview</div>
+    </div>`;
+  }
+
+  document.getElementById('app').innerHTML = `
+<section class="hero" id="top">
+  <canvas id="au1"></canvas>
+  <div class="wrap inner">
+    <div class="kicker rv" style="--d:.05s">${C.hero.kicker}</div>
+    <h1 class="rv" style="--d:.15s">${C.site.nameZh}</h1>
+    <div class="tag rv" style="--d:.3s">${C.hero.tagline}</div>
+    <div class="foot rv" style="--d:.45s">
+      <div class="sub">${C.hero.subtitle}</div>
+      <div class="hint">${C.hero.scrollHint} <i>↓</i></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats"><div class="wrap grid">
+  ${C.stats.map((s, i) => `<div class="stat rv" style="--d:${i * .08}s"><div class="num"><span class="cnt" data-v="${s.value}">0</span><em>·</em></div><div class="lbl">${s.label}</div></div>`).join('')}
+</div></section>
+
+<section id="works"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">01 — 精选案例</span><h2>作品，和它们的故事</h2></div>
+  ${C.cases.map((cs, i) => `
+  <div class="case${i % 2 ? ' flip' : ''}">
+    <div class="txt">
+      <div class="tag rv">${cs.tag}</div>
+      <h3 class="rv" style="--d:.08s">${cs.title}</h3>
+      <div class="en rv" style="--d:.1s">${cs.titleEn || ''}</div>
+      <p class="pos rv" style="--d:.14s">${cs.positioning}</p>
+      <div class="row rv" style="--d:.2s"><span class="k">挑战</span><span class="v">${cs.challenge}</span></div>
+      <div class="row rv" style="--d:.26s"><span class="k">方案</span><span class="v">${cs.solution}</span></div>
+      <div class="row rv" style="--d:.32s"><span class="k">成果</span><span class="v">${cs.outcome}</span></div>
+      <div class="pills rv" style="--d:.38s">${cs.stack.map(s => `<span>${s}</span>`).join('')}</div>
+      <div class="lnks rv" style="--d:.42s">
+        ${cs.demo ? `<a class="btn-demo" href="${cs.demo}" target="_blank" rel="noopener">${cs.demoLabel || '在线试用'} ↗</a>` : ''}
+        ${cs.link ? `<a class="lnk" href="${cs.link}" target="_blank" rel="noopener">${cs.linkLabel || '查看项目'} →</a>` : ''}
+      </div>
+    </div>
+    <div class="vis rv" style="--d:.2s">${caseVisual(cs)}</div>
+  </div>`).join('')}
+</div></section>
+
+<section class="works"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">02 — 更多作品</span><h2>同样从零到一</h2></div>
+  <div class="grid">
+    ${C.works.map((w, i) => `
+    <div class="work rv" style="--d:${i * .1}s">
+      <div class="top"><span class="no">0${i + 3}</span><span class="pf">${w.platform}</span></div>
+      <h4>${w.title}</h4>
+      <p>${w.desc}</p>
+      <div class="bot"><span class="stk">${w.stack}</span>
+        ${w.link ? `<a class="go" href="${w.link}" target="_blank" rel="noopener">仓库 →</a>` : `<span class="priv">PRIVATE</span>`}
+      </div>
+    </div>`).join('')}
+  </div>
+</div></section>
+
+<section class="about" id="about"><div class="wrap grid">
+  <div>
+    <div class="sec-head" style="padding:0 0 10px"><span class="idx">03 — 关于</span></div>
+    <h2 class="rv">${C.about.heading}</h2>
+    <p class="txt rv" style="--d:.12s">${C.about.text}</p>
+  </div>
+  <div class="pl rv" style="--d:.2s;align-self:end">
+    ${C.about.platforms.map(p => `<div class="row"><span class="n">${p.name}</span><span class="d">${p.detail}</span></div>`).join('')}
+  </div>
+</div></section>
+
+<section class="contact" id="contact">
+  <canvas id="au2"></canvas>
+  <div class="inner">
+    <div class="k rv">04 — CONTACT</div>
+    <h2 class="rv" style="--d:.1s">${C.contact.headline}</h2>
+    <p class="sub rv" style="--d:.18s">${C.contact.sub}</p>
+    <div class="rv" style="--d:.26s"><a class="mail" href="mailto:${C.contact.email}">${C.contact.email}</a></div>
+    <div class="rv" style="--d:.34s"><a class="gh" href="${C.contact.github}" target="_blank" rel="noopener">GitHub ↗</a></div>
+  </div>
+  <div class="inner-foot">
+    <div class="marq"><div class="track">${(`<span>${C.contact.marquee.replace(/—/g, '<b>—</b>')}</span>`).repeat(8)}</div></div>
+    <footer>© 2026 ${C.site.nameZh} — 手写，无框架。</footer>
+  </div>
+</section>`;
+
+  /* 背景视觉：在内容渲染、canvas 占位生成之后再启动 */
+  if (window.PortfolioFX) {
+    PortfolioFX.mountGrain();
+    PortfolioFX.aurora('au1', [
+      { x: .16, y: .30, r: .34, c: '#3730a3', vx: .00011, vy: .00007, ax: .11, ay: .09, p: 0, a: .5, pr: .05 },
+      { x: .62, y: .18, r: .28, c: '#0f766e', vx: -.00009, vy: .00012, ax: .10, ay: .09, p: 2, a: .4, pr: .08 },
+      { x: .88, y: .62, r: .24, c: '#b45309', vx: .00007, vy: -.00009, ax: .08, ay: .07, p: 4, a: .28, pr: .06 },
+      { x: .38, y: .88, r: .30, c: '#1e3a8a', vx: -.00006, vy: .00008, ax: .09, ay: .06, p: 5, a: .36, pr: .04 }
+    ]);
+    PortfolioFX.aurora('au2', [
+      { x: .22, y: .28, r: .32, c: '#3730a3', vx: .00009, vy: .00006, ax: .09, ay: .08, p: 1, a: .4, pr: .06 },
+      { x: .78, y: .68, r: .28, c: '#0f766e', vx: -.00007, vy: .0001, ax: .09, ay: .07, p: 3, a: .32, pr: .08 },
+      { x: .55, y: .06, r: .22, c: '#b45309', vx: .00006, vy: -.00008, ax: .07, ay: .05, p: 5, a: .22, pr: .05 }
+    ]);
+  }
+
+  /* 滚动入场 */
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+  }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+  /* 数字滚动计数 */
+  const cObs = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, end = +el.dataset.v, t0 = performance.now(), dur = 1300;
+    if (RM) { el.textContent = end; cObs.unobserve(el); return; }
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1), v = Math.round(end * (1 - Math.pow(1 - p, 3)));
+      el.textContent = v;
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+    cObs.unobserve(el);
+  }), { threshold: .6 });
+  document.querySelectorAll('.cnt').forEach(el => cObs.observe(el));
+
+  /* 导航毛玻璃 */
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50), { passive: true });
+
+  /* 视差 */
+  let pr = []; function collectPara() { pr = [...document.querySelectorAll('.para')]; }
+  collectPara();
+  if (!RM) {
+    let ticking = false;
+    addEventListener('scroll', () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const vh = innerHeight;
+        for (const el of pr) {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > vh) continue;
+          const off = ((r.top + r.height / 2) - vh / 2) * -.06;
+          el.style.transform = `translateY(${off.toFixed(1)}px)`;
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  /* 自定义光标 */
+  if (matchMedia('(pointer:fine)').matches && !RM) {
+    const cur = document.getElementById('cur');
+    let cx = innerWidth / 2, cy = innerHeight / 2, px = cx, py = cy;
+    addEventListener('pointermove', e => { cx = e.clientX; cy = e.clientY; });
+    (function follow() {
+      px += (cx - px) * .18; py += (cy - py) * .18;
+      cur.style.transform = `translate(${px}px,${py}px) translate(-50%,-50%)`;
+      requestAnimationFrame(follow);
+    })();
+    document.addEventListener('mouseover', e => {
+      cur.classList.toggle('big', !!e.target.closest('a,button,.work'));
+    });
+  }
+})();
