@@ -110,13 +110,13 @@ window.CONTENT = {
         background: "腾讯云黑客松参赛作品。比起写死的剧情，我更想验证「大模型驱动的自由对话」能不能撑起一个有温度、可玩的叙事游戏。",
         role: "负责玩法设计、前后端实现、Prompt 设计到上线部署的全流程。",
         team: "",              // TODO：拾忆是个人还是组队？组队请填人数与分工
-        duration: "2026.06（黑客松赛程内完成）",
-        architecture: "Vue 3 + TypeScript 前端负责场景与对话交互；FastAPI 后端作为游戏引擎维护世界状态与数据模型；对话经 Prompt 模板注入人设与上下文后调用 DeepSeek / 腾讯混元；SQLite 持久化存档；部署在腾讯云轻量应用服务器，前后端通过 REST API 通信。",
+        duration: "",          // TODO：真实开发周期（如「2026.05，约 2 周」）
+        architecture: "Vue 3 + TypeScript 前端负责场景与对话交互；FastAPI 后端作为游戏引擎维护世界状态与数据模型；对话经 Prompt 模板注入人设与上下文后调用 DeepSeek；SQLite 持久化存档；部署在腾讯云轻量应用服务器，前后端通过 REST API 通信。",
         architectureImage: "",
         flow: [
           "进入老人的记忆场景",
           "与 NPC 自由文字对话，模型依人设与上下文动态回应",
-          "在对话中收集 9 个记忆碎片、触发剧情分支",
+          "在对话中收集记忆碎片、触发剧情分支",
           "自动 / 手动存档（5 个存档位）",
           "依玩家选择走向 3 种结局之一"
         ],
@@ -149,7 +149,7 @@ window.CONTENT = {
         background: "持仓、行情、资金流向、新闻散落在各个 App，人工盯盘费时又容易被情绪带着走。我想做一个本地、私密、每天自动给出结论的桌面工具。",
         role: "个人项目，独立完成需求、前后端、AI 接入与打包发布。",
         team: "个人项目",
-        duration: "2026.05 - 至今",
+        duration: "",          // TODO：真实开发周期
         architecture: "FastAPI 后端负责数据采集、OCR、定时任务与 AI 报告生成，数据存于本地 SQLite 并归档日志；Vue 3 前端负责持仓、行情与报告展示；通过 DeepSeek 生成加减仓建议；最终用 PyInstaller 打包为免 Python / Node 环境的独立 Windows 应用。",
         architectureImage: "",
         flow: [
@@ -189,7 +189,7 @@ window.CONTENT = {
         background: "HarmonyOS 课程项目。复刻坦克大战不难，难的是让它今天还值得一玩——我想在经典玩法上加一层「指挥」的策略深度。",
         role: "个人独立完成：从游戏引擎到玩法系统、UI 与数据持久化。",
         team: "个人项目（课程作业）",
-        duration: "2025.06 - 至今",
+        duration: "",          // TODO：真实开发周期
         architecture: "ArkTS + ArkUI 搭建界面，Canvas 负责战场实时渲染；自实现游戏循环与碰撞检测；按「实体 / 场景 / 游戏状态」分层解耦；数据持久化保存车库、成就与玩家档案。",
         architectureImage: "",
         flow: [
